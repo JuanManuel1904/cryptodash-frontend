@@ -1,11 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+:root {
+  --bg-base:     #04060f;
+  --bg-surface:  #080d1c;
+  --bg-card:     #0c1220;
+  --bg-elevated: #101726;
+  --border:      rgba(255,255,255,0.06);
+  --border-hover:rgba(255,255,255,0.12);
+  --cyan:        #22d3ee;
+  --cyan-dim:    rgba(34,211,238,0.12);
+  --green:       #10b981;
+  --red:         #f43f5e;
+}
 
 @layer base {
-  body {
-    @apply bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100;
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.08) transparent;
   }
+  *::-webkit-scrollbar { width: 3px; height: 3px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 99px; }
+
+  body {
+    background: var(--bg-base);
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 24px rgba(34,211,238,0.15), 0 0 48px rgba(34,211,238,0.06);
+  }
+
+  .glow-green {
+    box-shadow: 0 0 20px rgba(16,185,129,0.2);
+  }
+
+  .glow-red {
+    box-shadow: 0 0 20px rgba(244,63,94,0.2);
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(34,211,238,0.3), rgba(168,85,247,0.1), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
 }

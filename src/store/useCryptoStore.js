@@ -3,6 +3,7 @@ import { create } from 'zustand'
 const MAX_HISTORY = 60
 const LS_FAVS     = 'cryptodash_favorites'
 const LS_FAV_DATA = 'cryptodash_favorites_data'
+const LS_HOLDINGS = 'cryptodash_holdings'
 
 function loadFavorites() {
   try { return new Set(JSON.parse(localStorage.getItem(LS_FAVS) || '[]')) }
@@ -14,9 +15,18 @@ function loadFavoritesData() {
   catch { return {} }
 }
 
+function loadHoldings() {
+  try { return JSON.parse(localStorage.getItem(LS_HOLDINGS) || '{}') }
+  catch { return {} }
+}
+
 function saveFavorites(set, data) {
   localStorage.setItem(LS_FAVS,     JSON.stringify([...set]))
   localStorage.setItem(LS_FAV_DATA, JSON.stringify(data))
+}
+
+function saveHoldings(holdings) {
+  localStorage.setItem(LS_HOLDINGS, JSON.stringify(holdings))
 }
 
 const useCryptoStore = create((set, get) => ({
@@ -26,6 +36,7 @@ const useCryptoStore = create((set, get) => ({
   history:       {},
   favorites:     loadFavorites(),
   favoritesData: loadFavoritesData(), // { [coinId]: { id, name, symbol, image, price, change_24h } }
+  holdings:      loadHoldings(),      // { [coinId]: { amount, buyPrice } }
 
   setPrices: (prices) => {
     const history = { ...get().history }
@@ -77,6 +88,30 @@ const useCryptoStore = create((set, get) => ({
 
   setSelectedCoin: (coin) => set({ selectedCoin: coin }),
   setWsStatus:     (wsStatus) => set({ wsStatus }),
+
+  // Holdings management
+  addHolding: (coinId, amount, buyPrice) => {
+    const holdings = { ...get().holdings }
+    holdings[coinId] = { amount: parseFloat(amount) || 0, buyPrice: parseFloat(buyPrice) || 0 }
+    saveHoldings(holdings)
+    set({ holdings })
+  },
+
+  updateHolding: (coinId, amount, buyPrice) => {
+    const holdings = { ...get().holdings }
+    if (holdings[coinId]) {
+      holdings[coinId] = { amount: parseFloat(amount) || 0, buyPrice: parseFloat(buyPrice) || 0 }
+      saveHoldings(holdings)
+      set({ holdings })
+    }
+  },
+
+  removeHolding: (coinId) => {
+    const holdings = { ...get().holdings }
+    delete holdings[coinId]
+    saveHoldings(holdings)
+    set({ holdings })
+  },
 }))
 
 export default useCryptoStore

@@ -7,6 +7,9 @@ import PriceCard from './components/PriceCard'
 import SkeletonCard from './components/SkeletonCard'
 import MyList from './components/MyList'
 import SearchPage from './pages/SearchPage'
+import ComparePage from './pages/ComparePage'
+import PortfolioPage from './pages/PortfolioPage'
+import StatusBadge from './components/StatusBadge'
 
 export default function App() {
   useWebSocket()
@@ -44,13 +47,16 @@ export default function App() {
               </div>
             </div>
           )}
-          {page === 'search' && <SearchPage />}
+          {page === 'search'    && <SearchPage />}
+          {page === 'compare'   && <ComparePage />}
+          {page === 'portfolio' && <PortfolioPage />}
         </main>
 
         {page === 'home' && <MyList />}
       </div>
 
-      <div className="fixed bottom-5 right-5 z-50">
+      <div className="fixed bottom-5 left-5 z-50">
+        <StatusBadge />
       </div>
     </div>
   )

@@ -17,6 +17,24 @@ const NAV = [
       </svg>
     ),
   },
+  {
+    id: 'compare',
+    label: 'Compare',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-[18px] h-[18px]">
+        <path d="M9.5 4C7 4 5 6 5 8.5c0 2.27 1.63 4.17 3.79 4.45L11 14.68V17H9v2h2v2h2v-2h2v-2h-2v-2.32l2.21-2.23C17.37 12.67 19 10.77 19 8.5 19 6 17 4 14.5 4c-1.33 0-2.52.52-3.4 1.36C10.24 4.64 9.43 4 9.5 4zm0 2c.83 0 1.5.67 1.5 1.5 0 .53-.28 1-.7 1.27.45.25.76.71.7 1.23A1.5 1.5 0 0 1 9.5 11 2.5 2.5 0 0 1 7 8.5 2.5 2.5 0 0 1 9.5 6zm5 0A2.5 2.5 0 0 1 17 8.5 2.5 2.5 0 0 1 14.5 11a1.5 1.5 0 0 1-1.5-1.5 1.5 1.5 0 0 1 1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'portfolio',
+    label: 'Portfolio',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-[18px] h-[18px]">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
+      </svg>
+    ),
+  },
 ]
 
 export default function Sidebar({ page, onNavigate }) {
